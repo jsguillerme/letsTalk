@@ -98,8 +98,8 @@ export function Room() {
         </div>
       </header>
       <main className="max-w-4xl mx-auto">
-        <div className="my-10 ml-6 flex items-center">
-          <h1 className="text-2xl text-[#435A4E] font-bold">Sala {title}</h1>
+        <div className="my-6 ml-6 flex items-center">
+          <h1 className="text-2xl text-[#435A4E] font-bold">Sala: {title || 'Faça login'}</h1>
         </div>
 
         <section className="h-[520px] flex text-center">
