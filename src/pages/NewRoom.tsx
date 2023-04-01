@@ -31,7 +31,7 @@ export function NewRoom() {
     const firebaseRoom = database.push(roomRef);
     database.set(firebaseRoom, {
       title: newRoom.trim(),
-      authorId: user?.id
+      authorId: user?.id,
     })
 
     /*

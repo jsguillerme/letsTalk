@@ -11,6 +11,7 @@ import { database } from '../services/firebase';
 export function Home() {
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState('');
+  const [isError, setIsError] = useState({ error: false, errorMessage: '' });
   const navigate = useNavigate()
 
   async function handleCreateTalk() {
@@ -22,7 +23,7 @@ export function Home() {
 
   async function handleJoinTalk(event: FormEvent) {
     event.preventDefault();
-    if(roomCode.trim() === ''){
+    if (roomCode.trim() === '') {
       return;
     }
 
@@ -30,7 +31,18 @@ export function Home() {
     const firebaseRoom = await database.get(roomRef);
 
     if (!firebaseRoom.exists()) {
-      alert('Room does not exists')
+      setIsError({ error: true, errorMessage: 'Ops!! Essa sala não existe. Tente outro código por favor.' })
+      setTimeout(() => {
+        setIsError({ error: false, errorMessage: '' })
+      }, 5000);
+      return;
+    }
+
+    if (firebaseRoom.val().closed_at) {
+      setIsError({ error: true, errorMessage: 'Ops!! A sala foi encerrada. Tente outra sala por favor.' })
+      setTimeout(() => {
+        setIsError({ error: false, errorMessage: '' })
+      }, 6000);
       return;
     }
 
@@ -64,6 +76,7 @@ export function Home() {
               <SignIn className='w-6 h-6 mr-2' weight='fill' />
               Entrar na Sala
             </Button>
+            {isError.error && <p className='text-sm text-red-800 mt-8'>{isError.errorMessage}</p>}
           </form>
         </div>
       </main>

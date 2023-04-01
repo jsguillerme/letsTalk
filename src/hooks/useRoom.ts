@@ -30,6 +30,7 @@ export function useRoom(roomId: string | undefined) {
   const { user } = useAuth();
   const [messages, setMessages] = useState<MessagesTypes[]>([])
   const [title, setTitle] = useState('');
+  const [ownerRoom, setOwnerRoom] = useState('');
 
   useEffect(() => {
 
@@ -38,7 +39,7 @@ export function useRoom(roomId: string | undefined) {
     }
 
     const db = database.getDatabase();
-    const roomRef = database.ref(db, `rooms/${roomId}`);
+    const roomRef = database.ref(db, `/rooms/${roomId}`);
 
     database.onValue(roomRef, (room) => {
       const databaseRoom = room.val();
@@ -56,17 +57,18 @@ export function useRoom(roomId: string | undefined) {
       })
       setMessages(parsedMessages);
       setTitle(databaseRoom.title);
+      setOwnerRoom(databaseRoom.authorId);
     })
 
     return () => {
       database.off(roomRef);
     }
 
-
   }, [roomId, user?.id])
 
   return { 
     messages,
-    title
+    title,
+    ownerRoom
   }
 }

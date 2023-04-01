@@ -1,12 +1,12 @@
 import copyImg from '../assets/copyIcon.svg';
 
 type RoomCodeProps = {
-  code: string
+  code: string | undefined
 }
 
 export function RoomCode(props: RoomCodeProps) {
   function copyRoomCodeToClipboard() {
-    navigator.clipboard.writeText(props.code);
+    navigator.clipboard.writeText(props.code || '');
   }
 
   return (
