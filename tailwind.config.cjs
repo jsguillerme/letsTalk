@@ -2,6 +2,9 @@
 module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
+    screens: {
+       'mobile': {'max': '890px'}
+    },
     extend: {
       colors: {
         brand: {

@@ -51,7 +51,7 @@ export function Home() {
 
   return (
     <div className='flex items-stretch h-screen'>
-      <aside className='bg-brand-500 text-white flex flex-[7] flex-col justify-center px-28 py-20'>
+      <aside className='bg-brand-500 text-white flex-[7] flex-col justify-center px-28 py-20 mobile:hidden'>
         <img src={iconTalkChat} alt="imagem representando um chat" className='max-w-xs' />
         <strong className='leading-10 mt-4 text-4xl'>Que tal bater um papo com seus amigos?</strong>
         <p className='text-xl mt-4 text-white'>Crie uma sala de conversa ou entre em uma e se divirta conversando com seus amigos ou faça novas amizades.</p>
